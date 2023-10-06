@@ -1,0 +1,9 @@
+./para_test image.png
+
+如果运行报错，需要重新编译该工具，进入param_test_tool文件中：
+mkdir build
+cd build
+cmake ..
+make
+
+然后编译生成的param_test执行文件拷贝到此处使用

@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: interbotix_descriptions
+    relative_path: urdf/wx250s_setup.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/wx250s.srdf
+  CONFIG:
+    author_name: Yang Jiao
+    author_email: 118010121@link.cuhk.edu.cn
+    generated_timestamp: 1652103039

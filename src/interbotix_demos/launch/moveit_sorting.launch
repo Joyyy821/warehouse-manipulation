@@ -1,0 +1,14 @@
+<launch>
+    <!-- Launch MoveIt! interface in RViz -->
+    <include file="$(find interbotix_moveit)/launch/interbotix_moveit.launch"/>
+
+    <!-- Launch the object hsv detection node -->
+    <include file="$(find object_color_detector)/launch/object_detect_hsv.launch"/>
+    
+    <!-- Launch rqt_image_view -->
+    <node pkg="rqt_image_view" type="rqt_image_view" name="camera_image" output="screen" />
+
+    <!-- Run the soring node -->
+    <!-- <node name="sorting" pkg="interbotix_demos" type="sorting.py" output="screen" /> -->
+
+</launch>

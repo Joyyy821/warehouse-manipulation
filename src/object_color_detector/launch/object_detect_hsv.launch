@@ -1,0 +1,12 @@
+<launch>
+
+  <arg name="use_gazebo"                         default="false"/>
+
+  <include unless="$(arg use_gazebo)" file="$(find object_color_detector)/launch/usb_cam.launch" />
+
+  <rosparam command="load" file="$(find object_color_detector)/config/vision_config.yaml" />
+  <param name="image_topic" value="/wx250s/camera/image_raw" if="$(arg use_gazebo)"/>
+
+  <node name="object_detector" pkg="object_color_detector" type="object_detector" output="screen" />
+
+</launch>

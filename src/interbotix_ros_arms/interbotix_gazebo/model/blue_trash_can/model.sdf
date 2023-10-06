@@ -1,0 +1,30 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+  <model name='blue_trash_can'>
+    <pose>0 0 0 0 0 0</pose>
+    <link name='trash_can'>
+      <collision name='trash_can_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://blue_trash_can/meshes/can.stl</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='trash_can_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://blue_trash_can/meshes/can.stl</uri>
+          </mesh>
+        </geometry>
+        <material>
+	  <ambient>0 0 0.5</ambient>
+	  <diffuse>0 0 0.5</diffuse>
+	  <specular>0.1 0.1 0.1 1 1</specular>
+        </material>
+      </visual>
+    </link>
+    <static>1</static>
+  </model>
+</sdf>

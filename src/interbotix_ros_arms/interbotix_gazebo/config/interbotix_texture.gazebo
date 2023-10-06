@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/base_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/shoulder_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/upper_arm_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/forearm_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/upper_forearm_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/lower_forearm_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/wrist_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/gripper_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/gripper_prop_link">
+    <dampingFactor>1</dampingFactor>
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/gripper_bar_link">
+    <material>Custom/Interbotix</material>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/left_finger_link">
+    <material>Custom/Interbotix</material>
+    <mu>10</mu>
+    <mu2>10</mu2>
+    <kp>1e13</kp>
+    <kd>1e8</kd>
+  </gazebo>
+
+  <gazebo reference="$(arg robot_name)/right_finger_link">
+    <material>Custom/Interbotix</material>
+    <mu>10</mu>
+    <mu2>10</mu2>
+    <kp>1e13</kp>
+    <kd>1e8</kd>
+  </gazebo>
+
+  <!--gazebo reference="right_finger">
+    <provideFeedback>true</provideFeedback>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="ft_sensor" filename="libgazebo_ros_ft_sensor.so">
+      <updateRate>100.0</updateRate>
+      <topicName>ft_sensor_topic</topicName>
+      <jointName>right_finger</jointName>
+    </plugin>
+  </gazebo-->
+
+  <gazebo reference="ee_arm">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+
+  <gazebo reference="gripper_bar">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+
+  <gazebo reference="ee_bar">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+
+  <gazebo reference="ee_gripper">
+    <disableFixedJointLumping>true</disableFixedJointLumping>
+  </gazebo>
+
+  <!--<gazebo>
+    <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+        <arm>
+           <arm_name>$(arg robot_name)</arm_name>
+           <palm_link> $(arg robot_name)/fingers_link </palm_link>
+           <gripper_link> $(arg robot_name)/left_finger_link </gripper_link>
+           <gripper_link> $(arg robot_name)/right_finger_link </gripper_link>
+        </arm>
+       <forces_angle_tolerance>100</forces_angle_tolerance>
+       <update_rate>4</update_rate>
+       <grip_count_threshold>4</grip_count_threshold>
+       <max_grip_count>8</max_grip_count>
+       <release_tolerance>0.0025</release_tolerance>
+       <disable_collisions_on_attach>false</disable_collisions_on_attach>
+       <contact_topic>__default_topic__</contact_topic>
+    </plugin>
+  </gazebo>-->
+  
+  <link name="$(arg robot_name)/virtual_camera_link"/>
+  <joint name="virtual_camera" type="fixed">
+      <origin rpy="0 0 0" xyz="0.03 0 0.07"/>
+      <parent link="$(arg robot_name)/ee_arm_link"/>
+      <child link="$(arg robot_name)/virtual_camera_link"/>
+    </joint>>
+  
+  <gazebo reference="$(arg robot_name)/virtual_camera_link">
+    <sensor type="camera" name="camera">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>$(arg robot_name)/virtual_camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+</robot>
